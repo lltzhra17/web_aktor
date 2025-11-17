@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Galeri Aktor & Aktris Korea — Pastel Pink</title>
+    <style>
+        :root {
+            --bg1: #8024e2;
+            --bg2: #fff0f6 --glass: rgba(255, 255, 255, 0.8);
+            --accent: #8a16fe;
+            --accent-2: rgba(178, 108, 255, 0.6);
+            --muted: #6b7280;
+            --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            background: transparent;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Background galaxy dasar */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(circle, #4d7cfe 0%, #2e026d 40%, #050a30 100%);
+        }
+
+        /* Canvas bintang */
+        #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        /* Nebula efek */
+        .nebula {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 110, 199, 0.15), rgba(0, 0, 0, 0));
+            filter: blur(70px);
+            animation: rotateGalaxy 40s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes rotateGalaxy {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* Centered login */
+        .center-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 460px;
+            border-radius: 14px;
+            background: rgba(40, 0, 72, 0.219);
+            backdrop-filter: blur(10px);
+            border: 1px solid #b36cff3b;
+            box-shadow: 0 0 25px rgba(178, 108, 255, 0.6);
+            padding: 28px;
+            backdrop-filter: blur(8px)
+        }
+
+        .login-title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700
+        }
+
+        .login-sub {
+            margin: 6px 0 18px;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .input-row {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .input-row input {
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            outline: none;
+            background: transparent;
+            font-size: 14px
+        }
+
+        .row-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+            gap: 12px
+        }
+
+        .btn {
+            background: linear-gradient(180deg, var(--accent), var(--accent-2));
+            color: #fff;
+            border: 0;
+            padding: 10px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 12px 30px rgba(255, 130, 190, 0.12)
+        }
+
+        .hint {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .error {
+            color: #c7435b;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none
+        }
+
+        /* App layout */
+        .app {
+            display: none;
+            min-height: 100vh;
+            padding: 28px
+        }
+
+        header.app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .logo {
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fff 0%, #ffeef6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 1000;
+            color: #9808ff;
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            box-shadow: var(--shadow)
+        }
+
+        h1.app-title {
+            margin: 0;
+            font-size: 18px
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px
+        }
+
+        .tab {
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            background: transparent;
+            box-shadow: 0 10px 26px rgb(150, 36, 168);
+            cursor: pointer;
+            font-weight: 700;
+            color: #000000
+        }
+
+        .tab.active {
+            background: rgba(168, 6, 205, 0.37);
+            border-color: rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 26px rgb(128, 5, 216)
+        }
+
+        .search {
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: rgba(162, 61, 185, 0.226);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .search input {
+            border: 0;
+            background: transparent;
+            outline: none;
+            width: 220px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin-top: 18px
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgb(127, 49, 165), rgba(255, 255, 255, 0.6));
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: transform .18s, box-shadow .18s;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(16, 24, 40, 0.06)
+        }
+
+        .thumb {
+            width: 110px;
+            height: 110px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.6)
+        }
+
+        .name {
+            font-weight: 700;
+            margin: 6px 0 0
+        }
+
+        .role {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 4px 0 0
+        }
+
+        /* modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(8, 7, 10, 0.36);
+            backdrop-filter: blur(6px);
+            z-index: 90;
+            padding: 20px
+        }
+
+        .modal {
+            width: 900px;
+            height: 380px;
+            background: linear-gradient(180deg, rgb(127, 49, 165)0%, rgba(255, 255, 255, 0.6) 100%);
+            border-radius: 14px;
+            padding: 18px;
+            display: flex;
+            gap: 18px;
+            box-shadow: 0 30px 70px rgba(99, 6, 220, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.9)
+        }
+
+        .modal-left {
+            flex: 0 0 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center
+        }
+
+        .modal-left img {
+            width: 260px;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.04)
+        }
+
+        .modal-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .box-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px
+        }
+
+        .info-box {
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.85));
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            font-weight: 700
+        }
+
+        .info-box.active {
+            background: linear-gradient(180deg, #f2e9fe, #9471a5);
+            box-shadow: 0 8px 20px rgba(114, 7, 208, 0.12)
+        }
+
+        .info-panel {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.5));
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            min-height: 90px
+        }
+
+        .close-small {
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 16px;
+            align-self: flex-end
+        }
+
+        @media (max-width:820px) {
+            .modal {
+                flex-direction: column;
+                align-items: center
+            }
+
+            .modal-left img {
+                width: 200px;
+                height: 200px
+            }
+
+            .search input {
+                width: 120px
+            }
+        }
+
+        /* ❤️ LIKE BUTTON */
+        .like-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 26px;
+            cursor: pointer;
+            transition: 0.25s;
+            user-select: none;
+        }
+
+        .like-btn.liked {
+            color: #ff2b85;
+            transform: scale(1.25);
+        }
+    </style>
+</head>
+
+<!-- 🌸 POP UP SELAMAT DATANG SETELAH LOGIN -->
+<div id="welcomePopup" style="
+    display:none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+">
+    <div style="
+    background: #ad12f557;
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 40px 50px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 8px 30px #aa11f1;
+    animation: fadeIn 0.5s ease;
+    ">
+        <h2 style="font-size: 26px; margin-bottom: 10px; color: #000000;">Selamat Datang</h2>
+        <p style="font-size: 16px; font-family: Cambria; color: #00000067; margin-bottom: 25px;">
+            Login kamu berhasil!</p>
+        <button id="closePopupBtn" style="
+            background: linear-gradient(135deg, #ab52ea, #880dd0);
+            border: none;
+            color: #222;
+            padding: 10px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+    ">Lanjut</button>
+    </div>
+</div>
+
+<style>
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+
+<body>
+
+    <canvas id="stars"></canvas>
+    <div class="nebula"></div>
+
+
+    <!-- LOGIN CENTER -->
+    <div id="loginView" class="center-wrap">
+        <div class="login-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+            <h2 id="loginTitle" class="login-title">Login — Galeri Aktor & Aktris</h2>
+            <p class="login-sub">Masuk untuk melihat galeri. Gunakan kredensial yang diberikan.</p>
+
+            <div class="input-row">
+                <input id="username" type="text" placeholder="Username" aria-label="Username" />
+                <input id="password" type="password" placeholder="Password" aria-label="Password" />
+            </div>
+
+            <div class="row-actions">
+                <div class="hint">Masukkan username & password.</div>
+                <button id="loginBtn" class="btn">Masuk</button>
+            </div>
+
+            <div id="loginError" class="error">Username atau password salah.</div>
+            <div style="margin-top:12px;color:var(--muted);font-size:13px">
+                <br />
+                <p align="center">&copy; 2025 By Noviana</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- APP -->
+    <div id="app" class="app" aria-hidden="true">
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo">K</div>
+                <div>
+                    <h1 class="app-title">Galeri Aktor & Aktris</h1>
+                    <div class="subtitle">Klik kartu untuk lihat detail</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="tabs" role="tablist">
+                    <button id="tabActors" class="tab active" data-tab="actors">Aktor</button>
+                    <button id="tabActresses" class="tab" data-tab="actresses">Aktris</button>
+                </div>
+
+                <div class="search" role="search">
+                    🔎 <input id="search" placeholder="Cari nama..." />
+                </div>
+
+                <button id="logoutBtn" class="btn">Log Out</button>
+            </div>
+        </header>
+        <br />
+
+
+        <main>
+            <div id="grid" class="grid" aria-live="polite"></div>
+        </main>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modalOverlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-left">
+                <button class="close-small" id="modalClose"><b style="color: #000000;">✕</b></button>
+                <img id="modalImg" src="" alt="Foto artis">
+                <div class="meta" id="modalRole" style="font-weight:800;color:#363033"></div>
+            </div>
+            <div class="modal-right">
+                <h3 id="modalTitle" class="modal-title"></h3>
+                <div class="meta" id="modalOrigin"></div>
+
+                <div class="box-row" aria-hidden="false">
+                    <div id="btnBio" class="info-box">Biodata</div>
+                    <div id="btnFilm" class="info-box">Film</div>
+                    <div id="btnAwards" class="info-box">Penghargaan</div>
+                </div>
+
+                <div id="infoPanel" class="info-panel"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ========== Credentials ========== */
+        const VALID_USERNAME = "nana";
+        const VALID_PASSWORD = "1111";
+
+
+        /* Actors (10) */
+        const actors = [{
+                id: 'ji_changwook',
+                name: 'Ji Chang-wook',
+                origin: 'Anyang, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 5 Juli 1987. Ji Chang-wook adalah pemeran asal Korea Selatan. Ia memperoleh kepopuleran karena perannya sebagai Dong-hae dalam drama harian Smile Again, diikuti oleh drama-drama sejarah, Warrior Baek Dong-soo dan Empress Ki.',
+                film: ['Healer (2014)', 'The K2 (2016)', 'Suspicious Partner (2017)', 'Empress Ki(2013)',
+                    'Melting Me Softly(2019)', 'Backstreet Rookie(2020)', 'Lovestruck in the city(2020)',
+                    'The sound of magic(2022)'
+                ],
+                awards: ['KBS Drama Awards (2017)', 'Aktor pendatang baru terbaik (film)(2014)'],
+                img: 'assets/images/actors/ji_changwook.jpg'
+            },
+            {
+                id: 'choi_hyunwook',
+                name: 'Choi Hyun-wook',
+                origin: 'Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 6 Juni 2002. Choi Hyun-wook adalah aktor asal Korea Selatan. Pada tahun 2019, ia memulai kariernya dalam dunia akting dengan peran utama dalam drama web Real:Time:Love. Berkat perannya dalam seri televisi SBS, yakni Taxi Driver dan Racket Boys, Choi memenangkan penghargaan Aktor Pendatang Baru Terbaik di SBS Drama Awards 2021.',
+                film: ['Weak Hero Class 1 (2022)', 'Twenty-Five Twenty-One (2022)', 'Twinkling Watermelon (2023)',
+                    'My Dearest Nemesis (2025)'
+                ],
+                awards: ['Aktor pendatang baru terbaik di SBS Dama Awards (2021)',
+                    'Best New aktor di Brand customer loyalty award (2022)',
+                    'Kategori why not award di Blue Dragon Series Awards (2023)'
+                ],
+                img: 'assets/images/actors/choi_hyunwook.jpg'
+            },
+            {
+                id: 'park_bogum',
+                name: 'Park Bo-gum',
+                origin: 'Seoul, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 16 Juni 1993. Park Bo-gum adalah aktor dan model iklan dari Korea Selatan. Namanya mulai melambung ketika berperan sebagai Choi Taek dalam drama Reply 1988. ',
+                film: ['Love in the Moonlight (2016)', 'Reply 1988 (2015)', 'Record of Youth (2020)'],
+                awards: ['Baeksang Arts Awards (2017)'],
+                img: 'assets/images/actors/park_bogum.jpg'
+            },
+            {
+                id: 'park_hyungsik',
+                name: 'Park Hyung-sik',
+                origin: 'Yongin, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 16 November 1991. Park Hyung-sik, juga dikenal sebagai Hyungsik, adalah anggota boyband asal Korea Selatan ZE:A. Dia yang memulai debutnya pada tanggal 7 Januari 2010 dengan singel Mazeltov. Selain membintangi drama televisi, Park Hyung-sik juga menjadi cast dalam variety show "Real Men". ',
+                film: ['Strong Woman Do Bong-soon (2017)', 'Suits (2018)'],
+                awards: ['MBC Drama Awards (2017)'],
+                img: 'assets/images/actors/park_hyungsik.jpg'
+            },
+            {
+                id: 'park_solomon',
+                name: 'Park Solomon',
+                origin: 'Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 19 September 1999. Park Solomon yang juga dikenal dengan nama panggungnya Lomon, adalah aktor dan model Korea Selatan-Uzbekistan yang berada dibawah naungan Big Smile Entertainment. Ia memulai debutnya pada tahun 2014, dan ia dikenal untuk peran utamanya dalam Sweet Revenge dan All of Us Are Dead.',
+                film: ['Twenty-Five Twenty-One (2022)'],
+                awards: ['New Actor Award (regional)'],
+                img: 'assets/images/actors/park_solomon.jpg'
+            },
+            {
+                id: 'lee_minho',
+                name: 'Lee Min-ho',
+                origin: 'Seoul, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 22 Juni 1987. Lee Min-ho adalah seorang pemeran dan penyanyi asal Korea Selatan. Ia mulai dikenal luas di Korea maupun di Asia berkat perannya sebagai Gu Jun-pyo dalam serial drama Boys Over Flowers pada 2009. Peran tersebut membawanya memenangkan penghargaan Aktor Pendatang Terbaik di Paeksang Arts Awards ke-45.',
+                film: ['Boys Over Flowers (2009)', 'The Heirs (2013)', 'Pachinko (2022)'],
+                awards: ['Baeksang Arts Awards'],
+                img: 'assets/images/actors/lee_minho.jpg'
+            },
+            {
+                id: 'Hyun_bin',
+                name: 'Hyun-Bin',
+                origin: 'Jamsil-dong, Seoul, Korea Selatan ',
+                role: 'Aktor',
+                bio: 'Lahir:25 September 1982 (usia 43 tahun) .Hyun Bin adalah aktor asal Korea Selatan. Ia dikenal karena perannya dalam drama My Name is Kim Sam Soon, Secret Garden, Memories of the Alhambra, dan Crash Landing on You.',
+                film: ['Late Autumn(2010)', 'Confidential Assignment(2017)', 'The Negotiation(2018)',
+                    'The Fatal Encounter(2014)', 'A Millionaire s First Love (2006)'
+                ],
+                awards: ['Penghargaan Seni Baeksang untuk Kategori Televisi: Daesang (2011)',
+                    'Penghargaan Seni Baeksang untuk Kategori Aktor Terpopuler (2020)',
+                    'Penghargaan Seni Baeksang untuk Kategori Film: Aktor Terpopuler (2006)'
+                ],
+                img: 'assets/images/actors/hyun_bin.jpg'
+            },
+            {
+                id: 'lee_jongsuk ',
+                name: 'Lee Jong-suk',
+                origin: ' Yongin, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 14 September 1989 (usia 36 tahun) . Lee Jong Suk adalah aktor dan model asal Korea Selatan. Dia memulai debutnya pada tahun 2005 dengan film pendek Sympathy. Ia lebih dikenal berkat perannya di drama School 2013.',
+                film: ['My Love from the Star (2013)', 'Its Okay to Not Be Okay (2020)'],
+                awards: [''],
+                img: 'assets/images/actors/lee_jongsuk.jpg'
+            },
+            {
+                id: 'gong_yoo',
+                name: 'Gong Yoo',
+                origin: 'Busan, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 10 Juli 1979. Gong Ji-cheol atau yang lebih dikenal dengan nama panggungnya yaitu Gong Yoo adalah aktor asal Korea Selatan. Perannya yang paling dikenal adalah peran-peran di drama televisi: The 1st Shop of Coffee Prince, Guardian: The Lonely and Great God, dan film-film: The Crucible dan Train to Busan. ',
+                film: ['Train to Busan (2016)', 'Goblin (2016)',
+                    'School 4 (2001)',
+                    'Biscuit Teacher and Star Candy (2005)',
+                    'Big (2012)',
+                    'The Silent Sea (2021)',
+                    'The Trunk (2024)'
+                ],
+                awards: ['Blue Dragon Film Awards',
+                    'Baeksang Arts Awards ke-53 (2017)'
+                ],
+                img: 'assets/images/actors/gongyoo.jpg'
+            },
+            {
+                id: 'Kim Bum',
+                name: 'Kim Bum',
+                origin: 'Distrik Mapo, Seoul, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 7 Juli 1989 (usia 36 tahun). Kim Sang-bum, secara profesional dikenal sebagai Kim Bum, adalah pemeran, penari, penyanyi, dan model asal Korea Selatan. Ia paling dikenal untuk perannya sebagai angota F4 So Yi-jung dalam Boys Over Flowers, malaikat pelindung sebagai Lee Gook-soo dalam Padam Padam, CEO Lee Ro-joon dalam Mrs.',
+                film: ['The Woman Who Still Wants to Marry (2010)', 'Goddess of Fire (2013)',
+                    'Hidden Identity (2015)',
+                    'Padam Padam (2011)', 'Mrs. Cop 2 (2016)',
+                    'That Winter, the Wind Blows (2013)',
+                    'Tale of the Nine Tailed (2020)',
+                    'Boys Over Flowers (2009)',
+                ],
+                awards: ['Blue Dragon Film Awards'],
+                img: 'assets/images/actors/Kim Bum.jpg'
+            },
+            {
+                id: 'Ahn Bo-hyun',
+                name: 'Ahn Bo-hyun',
+                origin: 'Busan, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 16 Mei 1988 (usia 37 tahun). Ahn Bo-hyun adalah aktor dan model asal Korea Selatan. Dia memulai debutnya sebagai model. Sebagai seorang mantan petinju, ia bermimpi menjadi aktor setelah menonton peran petinju Yu Oh-seong dalam film 2002 Champion.',
+                film: ['Flex x Cop (2024)', 'See You in My 19th Life (2023)',
+                    'Military Prosecutor Doberman (2022)', 'Yumis Cells (2021)', 'Itaewon Class (2020)'
+                ],
+                awards: ['Best New Actor di MBC Drama Awards (2020)',
+                    'Best Emotive Award (Actor) Asia Artist Awards (2020)',
+                    'Choice Award Asia Artist Awards (2020)', 'Brand of the Year Awards 2020',
+                    'Korea First Brand Awards 2020', 'APAN Star Awards 2022',
+                    'Model Star Award (2023)', 'Asia Artist Awards 2024'
+                ],
+                img: 'assets/images/actors/Ahn Bo-hyun.jpg'
+            },
+            {
+                id: 'Byun Woo-seok',
+                name: 'Byun Woo-seok',
+                origin: 'Bucheon, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Byeon Woo-seok adalah aktor dan peragawan asal Korea Selatan yang lahir pada 31 Oktober 1991. Dia memulai debut sebagai peragawan pada tahun 2010. berpartisipasi dalam pameran mode Seoul Fashion Week, melakukan debut internasional dengan tampil di pameran mode pria Milan Fashion Week untuk 17 perancang busana dunia.',
+                film: ['Lovely Runner (2024)', 'Record of Youth (2020)', 'Strong Girl Nam Soon (2023)',
+                    '20th Century Girl (2022)',
+                    'Moonshine (2021-2022)', 'Flower Crew: Joseon Marriage Agency (2019)',
+                    'Wife of a 21st Century Prince (Akantayang 2026)'
+                ],
+                awards: ['MAMA Award for Favorite Global Trending Music',
+                    'Best Actor of The Year Asia Artist Awards (2024)',
+                    'Popularity Award Asia Artist Awards (2024)',
+                    'Asia Celebrity Asia Artist Awards (2024)',
+                    'Best Couple (bersama Kim Hye-yoon) Asia Artist Awards (2024)',
+                    'Hot Star Award dan Global Star Award di Korea Drama Awards (2025)',
+                    'Popularity Award, Male dan Best Couple di APAN Star Awards (2024)',
+                ],
+                img: 'assets/images/actors/Byun Woo-seok.jpg'
+            },
+            {
+                id: 'Moon Sang-min',
+                name: 'Moon Sang-min',
+                origin: ' Cheongju, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 14 April 2000 (usia 25 tahun). Moon Sang-min adalah pemeran asal Korea Selatan. Ia memperoleh pengakuan untuk perannya sebagai Pangeran Agung Seongnam dalam Under the Queens Umbrella.',
+                film: ['Wedding Impossible (2024)', 'Duty After School (2023)',
+                    'Under The Queens Umbrella (2022)', 'My Name (2021)'
+                ],
+                awards: ['Aktor Pendatang Baru Terbaik dalam Penyiaran'],
+                img: 'assets/images/actors/Moon Sang-min.jpg'
+            },
+            {
+                id: 'Park Seo Joon',
+                name: 'Park Seo Joon',
+                origin: 'Seoul, Korea Selatan',
+                role: 'Aktor',
+                bio: 'Lahir: 16 Desember 1988 (usia 36 tahun). Park Seo Jun adalah aktor Korea Selatan yang dikenal karena perannya sebagai Si Woo dalam serial televisi KBS2, Dream High 2. Ia dikenal lewat drama-drama seperti She Was Pretty, Hwarang: The Poet Warrior Youth, Fight for My Way, Whats Wrong with Secretary Kim, dan Itaewon Class.',
+                film: ['Itaewon Class (2020)', 'Whats Wrong with Secretary Kim (2018)',
+                    'Fight for My Way (2017)',
+                    'Hwarang: The Poet Warrior Youth (2016)', 'Gyeongseong Creature (2023-2024)'
+                ],
+                awards: ['Penghargaan Grand Bell untuk Aktor Pendatang Baru Terbaik (2017)',
+                    'Penghargaan Film Blue Dragon untuk Bintang Populer - Pria (2015)',
+                    'AFA rising star of asia award (2019)'
+                ],
+                img: 'assets/images/actors/Park Seo Joon.jpg'
+            }
+        ];
+
+        /* Actresses (10) */
+        const actresses = [{
+                id: 'kim_hyeyoon',
+                name: 'Kim Hye-yoon',
+                origin: 'Seoul, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Lahir: 10 September 1996. Kim Hye-yoon adalah seorang aktris Korea Selatan yang menjadi terkenal karena perannya sebagai Kang Ye-seo dalam serial televisi JTBC Sky Castle. Ia telah menerima beberapa penghargaan penting, termasuk penghargaan dari Baeksang Arts Awards, Blue Dragon Film Awards dan Grand Bell Awards.',
+                film: ['Sky Castle (2018)', 'Extraordinary You (2019)'],
+                awards: ['Baeksang Arts Awards (Young)'],
+                img: 'assets/images/actresses/kim_hyeyoon.jpg'
+            },
+            {
+                id: 'moon_gayoung',
+                name: 'Moon Ga-young',
+                origin: 'Karlsruhe, Jerman',
+                role: 'Aktris',
+                bio: 'Lahir: 10 Juli 1996. Moon Ga-young adalah seorang aktris Korea Selatan kelahiran Jerman. Dia dikenal baik karena perannya pada seri Heartstrings, EXO Next Door, Tempted, Welcome to Waikiki 2, Find Me in Your Memory, True Beauty, dan Link: Eat, Love, Kill.',
+                film: ['True Beauty (2020)', 'Find Me in Your Memory (2020)'],
+                awards: ['Rising Star Award (2021)'],
+                img: 'assets/images/actresses/moon_gayoung.jpg'
+            },
+            {
+                id: 'seorina',
+                name: 'Seorina',
+                origin: ' Suwon, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Lahir: 3 Januari 1996 (usia 29 tahun). Seol In-Ah, adalah pemeran asal Korea Selatan yang paling dikenal karena perannya sebagai pemeran pendukung dalam dua serial televisi populer Mr. Queen dan Business Proposal.',
+                film: ['Drama A (2019)', 'Drama B (2021)'],
+                awards: ['Rising Actress Award (2022)'],
+                img: 'assets/images/actresses/seorina.jpg'
+            },
+            {
+                id: 'shin_eunsoo',
+                name: 'Shin Eun-soo',
+                origin: ' Distrik Yangcheon, Seoul, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Lahir: 23 Oktober 2002 (usia 23 tahun). Shin Eun-soo adalah aktris asal Korea Selatan dibawah naungan Management SOOP. Ia memulai debut aktingnya pada tahun 2016 sebagai pemeran utama wanita dalam film Vanishing Time: A Boy Who Returned. Ia juga menjadi bintang dalam serial televisi Legend of the Blue Sea sebagai Se-hwa remaja.',
+                film: ['Vanishing Time (2016)', 'Beautiful World (2019)'],
+                awards: ['Best New Actress (2017)'],
+                img: 'assets/images/actresses/shin_eunsoo.jpg'
+            },
+            {
+                id: 'cho_yihyun',
+                name: 'Cho Yi-hyun',
+                origin: 'Seoul, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Lahir: 8 Desember 1999.Cho Yi-hyun adalah pemeran Korea Selatan yang memulai debut pada tahun 2017. Ia menandatangani kontrak eksklusif dengan JYP Entertainment pada tahun 2018, tapi pada tahun berikutnya, ia pindah ke Artist Company. Ia paling dikenal untuk perannya dalam Hospital Playlist, School 2021, dan All of Us Are Dead..',
+                film: ['Sky Castle (2018)', 'Extracurricular (2020)'],
+                awards: ['Baeksang Arts (nominee)'],
+                img: 'assets/images/actresses/cho_yihyun.jpg'
+            },
+            {
+                id: 'park_shinhye',
+                name: 'Park Shin-hye',
+                origin: ' Gwangju, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Lahir: 18  Februari 1990 (usia 35 tahun). Park Shin-hye adalah seorang aktris dan model asal Korea Selatan. Ia memulai karier sebagai aktris dalam drama Korea Stairway to Heaven.',
+                film: ['The World of the Married (2020)', 'Nevertheless (2021)'],
+                awards: ['Rising Actress (regional)'],
+                img: 'assets/images/actresses/park_shinhye.jpg'
+            },
+            {
+                id: 'kim_jiwon',
+                name: 'Kim Ji-won',
+                origin: 'Seoul, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Lahir: 19 Oktober 1992. Kim Ji-won adalah aktris berkebangsaan Korea Selatan. Ia bermain sebagai pemeran utama dalam film Romantic Heaven dan muncul dalam seri drama To the Beautiful You, The Heirs, Descendants of the Sun.',
+                film: ['Fight for My Way (2017)', 'Arthdal Chronicles (2019)'],
+                awards: ['Best Supporting Actress (regional)'],
+                img: 'assets/images/actresses/kim_jiwon.jpg'
+            },
+            {
+                id: 'iu',
+                name: 'IU (Lee Ji-eun)',
+                origin: 'Seoul, Korea Selatan',
+                role: 'Aktris',
+                bio: 'IU, nama aslinya Lee Ji Eun, adalah aktris dan penyanyi asal Korea Selatan yang lahir pada 16 Mei 1993 di Seoul. Ia terkenal karena bakatnya di musik dan akting, membintangi berbagai drama populer seperti Dream High dan Hotel Del Luna, serta meraih berbagai penghargaan bergengsi. Ia dikenal dengan julukan "Nations Little Sister " dan "Nations Sweetheart " karena popularitasnya yang luas. ',
+                film: ['Dream High (2011)', 'Hotel Del Luna (2019)'],
+                awards: ['Baeksang Arts Awards'],
+                img: 'assets/images/actresses/iu.jpg'
+            },
+            {
+                id: 'bae_suzy',
+                name: 'Bae Suzy',
+                origin: 'Munheung-dong, Gwangju, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Lahir: 10 Oktober 1994. Bae Su-ji, lebih dikenal dengan nama panggungnya Suzy. Meskipun Suzy adalah nama panggung tetapi JYP sengaja memilihkan nama itu agar bisa menjadi pembeda di antara nama selebriti lain nya yang juga bernama Suji, nama Suzy kini telah melekat dan menjadi legenda karena nya.',
+                film: ['While You Were Sleeping (2017)', 'Start-Up (2020)'],
+                awards: ['KBS/MBC Awards'],
+                img: 'assets/images/actresses/Bae Suzy.jpg'
+            },
+            {
+                id: 'Song Hye-kyo',
+                name: 'Song Hye-kyo',
+                origin: ' Distrik Dalseo, Daegu, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Lahir: 22 November 1981 (usia 43 tahun),. Song Hye-kyo adalah aktris dan model asal Korea Selatan. Ia memperoleh kesuksesannya melalui serial televisi Autumn in My Heart, All In, Full House, That Winter, The Wind Blows, dan drama sukses Descendants of the Sun. Ia juga membintangi film Hwang Jin Yi, The Grandmaster, My Brilliant Life dan The Queens.',
+                film: ['Train to Busan (2016)', 'Goblin (2016)'],
+                awards: ['Blue Dragon Film Awards'],
+                img: 'assets/images/actresses/song_hye_kyo.jpg'
+            },
+            {
+                id: 'Kim Yoo-jung',
+                name: 'Kim Yoo-jung',
+                origin: ' Geumho-dong, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Lahir: 22 September 1999 (usia 26 tahun). Kim You Jung adalah seorang aktris, model, host, dan penyanyi asal Korea Selatan. Ia memulai debutnya pada usia tiga tahun dan sejak itu menjadi salah satu aktris cilik terbaik di Korea.',
+                film: ['Train to Busan (2016)', 'Goblin (2016)'],
+                awards: ['Blue Dragon Film Awards'],
+                img: 'assets/images/actresses/Kim Yoo-jung.jpg'
+            },
+            {
+                id: 'Chae Soo-bin',
+                name: 'Chae Soo-bin',
+                origin: ' Anyang, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Chae Soo Bin adalah aktris Korea Selatan yang lahir pada 10 Juli 1994 dengan nama asli Bae Soo Bin. Ia memiliki tinggi badan 167 cm, berzodiak Cancer, dan lulusan Universitas Konkuk. ',
+                film: ['Train to Busan (2016)', 'Goblin (2016)'],
+                awards: ['Blue Dragon Film Awards'],
+                img: 'assets/images/actresses/Chae Soo - bin.jpg '
+            },
+            {
+                id: 'Son Ye Jin',
+                name: 'Son Ye Jin',
+                origin: ' Distrik Suseong, Daegu, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Son Ye-jin adalah seorang aktris Korea Selatan yang lahir pada 11 Januari 1982 di Daegu, Korea Selatan. Ia dikenal luas berkat perannya dalam film seperti The Classic (2003) dan A Moment to Remember (2004), serta drama populer seperti Crash Landing on You (2019–2020). Son Ye-jin menikah dengan aktor Hyun Bin pada tahun 2022 dan memiliki seorang anak laki-laki. ',
+                film: ['Train to Busan (2016)', 'Goblin (2016)'],
+                awards: ['Blue Dragon Film Awards'],
+                img: 'assets/images/actresses/Son Ye-jin.jpg'
+            },
+            {
+                id: 'kim_taeri',
+                name: 'Kim Tae-ri',
+                origin: ' Sangbong-dong, Seoul, Korea Selatan',
+                role: 'Aktris',
+                bio: 'Kim Tae - ri adalah aktris Korea Selatan yang lahir pada 24 April 1990 di Seoul.Ia dikenal lewat perannya dalam film The Handmaiden(2016) drama Mr.Sunshine(2018), dan Twenty - Five Twenty - One(2022). Kim Tae-ri lulus dari Universitas Kyung Hee dengan jurusan Jurnalistik dan Komunikasi.',
+                film: ['The Handmaiden (2016)', 'Mr. Sunshine (2018)'],
+                awards: ['Blue Dragon Film Awards'],
+                img: 'assets/images/actresses/kim_taeri.jpg'
+            }
+        ];
+
+        /* ======== Elements ======== */
+        const loginView = document.getElementById('loginView');
+        const app = document.getElementById('app');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginError = document.getElementById('loginError');
+
+        const tabActors = document.getElementById('tabActors');
+        const tabActresses = document.getElementById('tabActresses');
+        const grid = document.getElementById('grid');
+        const search = document.getElementById('search');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalOrigin = document.getElementById('modalOrigin');
+        const modalRole = document.getElementById('modalRole');
+        const modalClose = document.getElementById('modalClose');
+
+        const btnBio = document.getElementById('btnBio');
+        const btnFilm = document.getElementById('btnFilm');
+        const btnAwards = document.getElementById('btnAwards');
+        const infoPanel = document.getElementById('infoPanel');
+
+        /* ======== Helpers ======== */
+        // create simple SVG fallback with initials
+        function makeInitialsSVG(name, w = 600, h = 600) {
+            const parts = (name || '').split(' ').filter(Boolean);
+            const initials = (parts.length === 1 ? parts[0][0] : parts[0][0] + (parts[1] ? parts[1][0] : ''))
+                .toUpperCase();
+            const bg = '#ffeef6';
+            const fg = '#ff4f9c';
+            const svg =
+                `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'><rect width='100%' height='100%' fill="${bg}"/><text x='50%' y='50%' font-family='Inter,Arial' font-size='96' fill='${fg}' text-anchor='middle' dominant-baseline='central'>${initials}</text></svg>`;
+            return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+        }
+
+        function safeSetImg(imgEl, src, name) {
+            imgEl.src = src;
+            imgEl.onerror = () => {
+                imgEl.onerror = null;
+                imgEl.src = makeInitialsSVG(name);
+            };
+        }
+
+        /* ======== Login logic ======== */
+        function showLogin(show = true) {
+            if (show) {
+                loginView.style.display = 'flex';
+                app.style.display = 'none';
+                modalOverlay.style.display = 'none';
+                loginError.style.display = 'none';
+            } else {
+                loginView.style.display = 'none';
+                app.style.display = 'block';
+                showWelcomePopup();
+                app.setAttribute('aria-hidden', 'false');
+                usernameInput.value = '';
+                passwordInput.value = '';
+            }
+        }
+
+        function attemptLogin() {
+            const u = usernameInput.value.trim();
+            const p = passwordInput.value;
+            if (u === VALID_USERNAME && p === VALID_PASSWORD) {
+                showLogin(false);
+                switchTab('actors');
+            } else {
+                loginError.style.display = 'block';
+            }
+        }
+
+        loginBtn.addEventListener('click', attemptLogin);
+        passwordInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') attemptLogin();
+        });
+
+        /* ======== Render grid (HTML content inserted) ======== */
+        function makeCard(person) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.tabIndex = 0;
+
+            const img = document.createElement('img');
+            img.className = 'thumb';
+            safeSetImg(img, person.img, person.name);
+
+            const nm = document.createElement('p');
+            nm.className = 'name';
+            nm.textContent = person.name;
+            const rl = document.createElement('p');
+            rl.className = 'role';
+            rl.textContent = person.role;
+
+            card.appendChild(img);
+            card.appendChild(nm);
+            card.appendChild(rl);
+
+            card.addEventListener('click', () => openModal(person));
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') openModal(person);
+            });
+
+            return card;
+        }
+
+        function render(list) {
+            grid.innerHTML = '';
+            if (!list || list.length === 0) {
+                grid.innerHTML =
+                    '<div style="grid-column:1/-1;text-align:center;color:#999">Tidak ada data.</div>';
+                return;
+            }
+            list.forEach(p => grid.appendChild(makeCard(p)));
+        }
+
+        /* ======== Tab & search ======== */
+        let currentTab = 'actors';
+        let currentList = actors;
+
+        function switchTab(tab) {
+            currentTab = tab;
+            if (tab === 'actors') {
+                currentList = actors;
+                tabActors.classList.add('active');
+                tabActresses.classList.remove('active');
+            } else {
+                currentList = actresses;
+                tabActresses.classList.add('active');
+                tabActors.classList.remove('active');
+            }
+            search.value = '';
+            render(currentList);
+        }
+
+        tabActors.addEventListener('click', () => switchTab('actors'));
+        tabActresses.addEventListener('click', () => switchTab('actresses'));
+
+        search.addEventListener('input', (e) => {
+            const q = e.target.value.trim().toLowerCase();
+            if (!q) return render(currentList);
+            const filtered = currentList.filter(p => {
+                return (p.name || '').toLowerCase().includes(q) ||
+                    (p.origin || '').toLowerCase().includes(q) ||
+                    (p.film || []).join(' ').toLowerCase().includes(q);
+            });
+            render(filtered);
+        });
+
+        /* ======== Modal & info boxes ======== */
+        let activePerson = null;
+
+        function openModal(person) {
+            activePerson = person;
+            safeSetImg(modalImg, person.img, person.name);
+            modalTitle.textContent = person.name;
+            modalOrigin.textContent = person.origin || '—';
+            modalRole.textContent = person.role || '—';
+            setActiveBox('bio');
+            modalOverlay.style.display = 'flex';
+            modalOverlay.setAttribute('aria-hidden', 'false');
+            btnBio.focus();
+        }
+
+        function closeModal() {
+            activePerson = null;
+            modalOverlay.style.display = 'none';
+            modalOverlay.setAttribute('aria-hidden', 'true');
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        function setActiveBox(kind) {
+            btnBio.classList.remove('active');
+            btnFilm.classList.remove('active');
+            btnAwards.classList.remove('active');
+
+            if (!activePerson) {
+                infoPanel.innerHTML = '—';
+                return;
+            }
+
+            if (kind === 'bio') {
+                btnBio.classList.add('active');
+                infoPanel.innerHTML = `<div>${activePerson.bio || '—'}</div>`;
+            } else if (kind === 'film') {
+                btnFilm.classList.add('active');
+                const arr = (activePerson.film || []).map(f => `<li>${f}</li>`).join('');
+                infoPanel.innerHTML = `<ul style="margin:0 0 0 18px;padding:6px 0">${arr}</ul>`;
+            } else {
+                btnAwards.classList.add('active');
+                const arrA = (activePerson.awards || []).map(a => `<li>${a}</li>`).join('');
+                infoPanel.innerHTML = `<ul style="margin:0 0 0 18px;padding:6px 0">${arrA}</ul>`;
+            }
+        }
+
+        btnBio.addEventListener('click', () => setActiveBox('bio'));
+        btnFilm.addEventListener('click', () => setActiveBox('film'));
+        btnAwards.addEventListener('click', () => setActiveBox('awards'));
+
+        /* ======== Logout ======== */
+        logoutBtn.addEventListener('click', () => {
+            showLogin(true);
+        });
+
+        /* ======== Init ======== */
+        showLogin(true);
+
+        // === POP UP SELAMAT DATANG ===
+        const popup = document.getElementById("welcomePopup");
+        const closePopupBtn = document.getElementById("closePopupBtn");
+
+        function showWelcomePopup() {
+            popup.style.display = "flex";
+            popup.style.opacity = "1";
+        }
+
+        closePopupBtn.addEventListener("click", () => {
+            popup.style.opacity = "0";
+            setTimeout(() => popup.style.display = "none", 400);
+        });
+        /* Efek bintang bergerak */
+        const canvas = document.getElementById("stars");
+        const ctx = canvas.getContext("2d");
+
+        let w, h;
+
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        let stars = [];
+        let total = 250;
+
+        for (let i = 0; i < total; i++) {
+            stars.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                size: Math.random() * 2,
+                speed: Math.random() * 0.3 + 0.05
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = "white";
+
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
+                ctx.fill();
+
+                star.y += star.speed;
+                if (star.y > h) star.y = 0;
+            });
+
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+    </script>
+
+</body>
+
+</html>

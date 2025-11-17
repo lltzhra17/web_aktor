@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galaxy Actors</title>
+    <style>
+        :root {
+            --primary: #6A0DAD;
+            --secondary: #2E1A88;
+            --accent: #FF4FCE;
+            --background: #0B0F4B;
+            --text-light: #F1E7FF;
+            --text-dark: #1A082E;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button {
+            background: var(--primary);
+            color: var(--text-light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: var(--accent);
+        }
+
+
+        .login-container,
+        .register-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            width: 300px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background: #4a32ff;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #home {
+            display: none;
+            padding: 20px;
+        }
+
+        .country-buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background: #6b50ff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .actor-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .actor-card img {
+            width: 100%;
+            border-radius: 10px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        #popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #popup-box {
+            background: #1a1a3a;
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        #popup-box img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            margin-top: 10px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="login-page" class="login-container">
+        <div class="card">
+            <h2>Login</h2>
+            <input id="login-user" placeholder="Username" />
+            <input id="login-pass" type="password" placeholder="Password" />
+            <button onclick="login()">Masuk</button>
+            <button onclick="showRegister()">Buat Akun</button>
+        </div>
+    </div>
+
+    <div id="register-page" class="register-container" style="display:none;">
+        <div class="card">
+            <h2>Buat Akun</h2>
+            <input id="reg-user" placeholder="Username" />
+            <input id="reg-pass" type="password" placeholder="Password" />
+            <button onclick="register()">Daftar</button>
+            <button onclick="showLogin()">Kembali</button>
+        </div>
+    </div>
+
+    <div id="home">
+        <h1>Galaxy Actors</h1>
+        <div class="country-buttons">
+            <button onclick="loadActors('indonesia')">Indonesia</button>
+            <button onclick="loadActors('korea')">Korea</button>
+            <button onclick="loadActors('china')">China</button>
+            <button onclick="loadActors('thailand')">Thailand</button>
+        </div>
+        <div id="actor-grid" class="grid"></div>
+    </div>
+
+    <div id="popup">
+        <div id="popup-box"></div>
+    </div>
+
+    <script>
+        const data = {
+            indonesia: [{
+                    nama: "Iqbaal Ramadhan",
+                    foto: "img/indonesia/iqbaal.jpg",
+                    biodata: "Aktor Indonesia.",
+                    film: ["Dilan 1990"],
+                    penghargaan: ["Piala Maya"]
+                },
+                {
+                    nama: "Prilly Latuconsina",
+                    foto: "img/indonesia/prilly.jpg",
+                    biodata: "Aktris Indonesia.",
+                    film: ["Danur"],
+                    penghargaan: ["Official Selection"]
+                }
+            ],
+            korea: [{
+                nama: "Lee Min Ho",
+                foto: "img/korea/leeminho.jpg",
+                biodata: "Aktor Korea.",
+                film: ["The King"],
+                penghargaan: ["Baeksang Arts Awards"]
+            }],
+            china: [{
+                nama: "Yang Yang",
+                foto: "img/china/yangyang.jpg",
+                biodata: "Aktor China.",
+                film: ["You Are My Glory"],
+                penghargaan: ["Golden Eagle Award"]
+            }],
+            thailand: [{
+                nama: "Bright Vachirawit",
+                foto: "img/thailand/bright.jpg",
+                biodata: "Aktor Thailand.",
+                film: ["F4 Thailand"],
+                penghargaan: ["Asian Star Award"]
+            }]
+        };
+
+        function showRegister() {
+            loginPage.style.display = "none";
+            registerPage.style.display = "flex";
+        }
+
+        function showLogin() {
+            registerPage.style.display = "none";
+            loginPage.style.display = "flex";
+        }
+
+        function register() {
+            localStorage.setItem("user", regUser.value);
+            localStorage.setItem("pass", regPass.value);
+            alert("Akun berhasil dibuat!");
+            showLogin();
+        }
+
+        function login() {
+            if (loginUser.value === localStorage.getItem("user") && loginPass.value === localStorage.getItem("pass")) {
+                document.getElementById("login-page").style.display = "none";
+                document.getElementById("home").style.display = "block";
+            } else alert("Login gagal!");
+        }
+
+        function loadActors(country) {
+            const grid = document.getElementById("actor-grid");
+            grid.innerHTML = "";
+            data[country].forEach(actor => {
+                grid.innerHTML += `
+            <div class='actor-card' onclick='showPopup(${JSON.stringify(actor)})'>
+                <img src='${actor.foto}' />
+                <h3>${actor.nama}</h3>
+            </div>
+        `;
+            });
+        }
+
+        function showPopup(actor) {
+            popup.style.display = "flex";
+            popupBox.innerHTML = `
+        <h2>${actor.nama}</h2>
+        <img src='${actor.foto}' />
+        <p><b>Biodata:</b> ${actor.biodata}</p>
+        <p><b>Film:</b> ${actor.film.join(", ")}</p>
+        <p><b>Penghargaan:</b> ${actor.penghargaan.join(", ")}</p>
+        <button class='close-btn' onclick='popup.style.display="none"'>Tutup</button>
+    `;
+        }
+    </script>
+
+</body>
+
+</html>
