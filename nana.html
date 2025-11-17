@@ -7,11 +7,11 @@
     <title>Galeri Aktor & Aktris Korea — Pastel Pink</title>
     <style>
         :root {
-            --bg1: #8024e2;
+            --bg1: #ebd9ff;
             --bg2: #fff0f6 --glass: rgba(255, 255, 255, 0.8);
-            --accent: #8a16fe;
+            --accent: #b36cff3b;
             --accent-2: rgba(178, 108, 255, 0.6);
-            --muted: #6b7280;
+            --muted: #c2cce3;
             --shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
             font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
         }
@@ -82,7 +82,7 @@
             width: 100%;
             max-width: 460px;
             border-radius: 14px;
-            background: rgba(40, 0, 72, 0.219);
+            background: radial-gradient(circle, rgba(255, 110, 199, 0.15), rgba(0, 0, 0, 0));
             backdrop-filter: blur(10px);
             border: 1px solid #b36cff3b;
             box-shadow: 0 0 25px rgba(178, 108, 255, 0.6);
@@ -105,16 +105,17 @@
         .input-row {
             display: flex;
             flex-direction: column;
-            gap: 12px
+            gap: 12px;
         }
 
         .input-row input {
             padding: 12px 14px;
             border-radius: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(36, 3, 121, 0.689);
             outline: none;
             background: transparent;
-            font-size: 14px
+            font-size: 14px;
+            color: #000000
         }
 
         .row-actions {
@@ -477,12 +478,12 @@
         <div class="login-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
             <h2 id="loginTitle" class="login-title">Login — Galeri Aktor & Aktris</h2>
             <p class="login-sub">Masuk untuk melihat galeri. Gunakan kredensial yang diberikan.</p>
-
+            <br />
             <div class="input-row">
                 <input id="username" type="text" placeholder="Username" aria-label="Username" />
                 <input id="password" type="password" placeholder="Password" aria-label="Password" />
             </div>
-
+            <br />
             <div class="row-actions">
                 <div class="hint">Masukkan username & password.</div>
                 <button id="loginBtn" class="btn">Masuk</button>
